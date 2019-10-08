@@ -1,8 +1,8 @@
 /*	Author: Zion Gutierrez, zguti001
  *      Partner(s) Name: none
  *	Lab Section: 023
- *	Assignment: Lab #3 Exercise #4
- *	Exercise Description: Nibble Transfer Challenge
+ *	Assignment: Lab #3 Exercise #5
+ *	Exercise Description: Car Weight Challenge
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
@@ -14,26 +14,34 @@
 #endif
 
 int main(void) {
-        DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
-     	DDRB = 0xFF; PORTB = 0x00; // Configure port B's 8 pins as outputs, initialize to 0s
-	DDRC = 0xFF; PORTC = 0x00; // Configure port C's 8 pins as outputs, initialize to 0s
-        unsigned char inputA = 0x00;
- 	unsigned char outputB = 0x00;
-	unsigned char outputC = 0x00;
+     	DDRB = 0xFE; PORTB = 0x01; // Configure port B's 7 most significant pins as outputs and PB0 as input
+	DDRD = 0x00; PORTD = 0xFF; // Configure port C's 8 pins as inputs, initialize to 0s
+        
+	unsigned short totalWeight = 0;
+ 	unsigned char inputB = 0x00;
+	unsigned char outputB = 0x00;
+	unsigned char inputD = 0x00;
 
         while (1) {
 	// inputs:
-	inputA = PINA;
+	inputD = PIND;
+	inputB = PINB & 0x01;
+
+	totalWeight = inputD;
+	totalWeight = totalWeight + inputB;
+ 
+	if( totalWeight >= 70) {
+		outputB = outputB | 0x02;
+	}
+	if( totalWeight < 70 && totalWeight > 5){
+		outputB = outputB | 0x04;
+	}
+	else{
+		outputB = 0x00;
+	}
 
         // outputs:
-  	outputB = inputA & 0xF0;
-	outputB = outputB >> 4;
-	outputC = inputA & 0x0F;	
-	outputC = outputC << 4; 
-   
-	PORTB = outputB;
-	PORTC = outputC;
-	
+  	PORTB = outputB;
          }
     return 1;
 }

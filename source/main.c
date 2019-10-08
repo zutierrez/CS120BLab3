@@ -21,22 +21,31 @@ int main(void) {
 
         unsigned char inputA = 0x00; // Temp (PORTA)
         unsigned char outputC = 0x00; // Temp (PORTC)
-        int i;
-        int j;
 
         while (1) {
         // inputs:
-        // inputA = PINA;
-        // if(fuelLevel >= 13){
-        //turn on all bits (0011 1111)
-        //       }
-        // if(fuelLevel < 13 && fuelLevel >= 10){
-        //       //turn on (0011 1110)
-	}
-		
+
+         if(fuelLevel >= 13){
+         	outputC = 0x3F; // (0011 1111)
+         }
+         if(fuelLevel < 13 && fuelLevel >= 10){ //(12-10)
+         	outputC = 0x3E; // (0011 1110)
+	 }
+	 if(fuelLevel < 10 && fuelLevel >= 7){ //(9-7)
+	 	outputC = 0x3C; // (0011 1100)
+	 }	
+	 if(fuelLevel < 7 && fuelLevel >= 5){  //(6-5)
+		outputC = 0x38; // (0011 1000)
+	 }
+	 if(fuelLevel < 5 && fuelLevel >= 3){  //(4-3)
+		outputC = 0x70; // (0111 0000)
+	 }
+	 if(fuelLevel < 3){     // (2-0)
+		outputC = 0x60; // (0110 0000)
+	 }
+
         // Output
-	PORTC = cnt;
-	cnt = 0x00;
+	PORTC = outputC;
     }
     return 1;
 }

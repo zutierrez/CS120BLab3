@@ -28,9 +28,8 @@ echo Running all tests..."\n\n
 
 # LAB3_EX1 ===== TESTS: A&B 1'S COUNTER
 
-test "PINA: 0x00, PINB: 0x00 => PORTC: 0x00"
+test "PINA: 0x00  => PORTC: 0x00"
 setPINA 0x00
-setPINB 0x00
 continue 5
 expectPORTC 0x00
 checkResult

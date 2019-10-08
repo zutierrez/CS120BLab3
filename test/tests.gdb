@@ -26,13 +26,13 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-# LAB3_EX4 ===== TESTS: Nibble Transfer Challenge
+# LAB3_EX5 ===== TESTS: totalWeight Sensor
 
-test "PINA: 0xC6 => PORTB: 0x0C ,PORTC: 0x60"
+test "PIND: 0x2C, PB0: 1 (89) => PORTB: 0x03"
 setPINA 0xC6
+setPINB 0x01
 continue 5
-expectPORTB 0x0C
-expectPORTC 0x60
+expectPORTB 0x03
 checkResult
 
 test "PINA: 0x11 => PORTB: 0x01, PORTC: 0x10"

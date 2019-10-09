@@ -29,38 +29,24 @@ echo Running all tests..."\n\n
 # LAB3_EX5 ===== TESTS: totalWeight Sensor
 
 test "PIND: 0x2C, PB0: 1 (89) => PORTB: 0x03"
-setPINA 0xC6
+setPIND 0x2C
 setPINB 0x01
 continue 5
 expectPORTB 0x03
 checkResult
 
-test "PINA: 0x11 => PORTB: 0x01, PORTC: 0x10"
-setPINA 0x11
+test "PIND: 0x15, PB0: 1 (43) => PORTB: 0x05"
+setPIND 0x15
+setPINB 0x01
+continue 5
+expectPORTB 0x05
+checkResult
+
+test "PIND: 0x01, PB0: 1 (3) => PORTB: 0x01"
+setPIND 0x01
+setPINB 0x01
 continue 5
 expectPORTB 0x01
-expectPORTC 0x10
-checkResult
-
-test "PINA: 0xF1 => PORTB: 0x0F, PORTC: 0x10"
-setPINA 0xF1
-continue 5
-expectPORTB 0x0F
-expectPORTC 0x10
-checkResult
-
-test "PINA: 0x86 => PORTB: 0x08, PORTC: 0x60"
-setPINA 0x86
-continue 5
-expectPORTB 0x08
-expectPORTC 0x60
-checkResult
-
-test "PINA: 0x1C => PORTB: 0x01, PORTC: 0xC0"
-setPINA 0x1C
-continue 5
-expectPORTB 0x01
-expectPORTC 0xC0
 checkResult
 
 # Report on how many tests passed/tests ran

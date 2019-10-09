@@ -25,24 +25,25 @@ int main(void) {
         while (1) {
 	// inputs:
 	inputD = PIND;
-	inputB = PINB & 0x01;
+	inputB = PINB & 0x01; //isolates PINB's 0th bit
 
-	totalWeight = inputD;
-	totalWeight = totalWeight << 1;
-	totalWeight = totalWeight | inputB;
+	totalWeight = inputD; //map inputD to B7-B0 to 16 bit number
+	totalWeight = totalWeight << 1; //shift to left by one
+	totalWeight = totalWeight | inputB; // set B0 to PINB's 0th bit
  
 	if( totalWeight >= 70) {
-		outputB = 0x02;
+		outputB |= 0x02; // (0000 0001) -> (0000 0011)
 	}
-	if( totalWeight < 70 && totalWeight > 5){
-		outputB = 0x04;
+	else if( totalWeight < 70 && totalWeight > 5){
+		outputB |= 0x04; // (0000 0001) -> (0000 0101)
 	}
 	else{
-		outputB = 0x00;
+		outputB |= 0x00; // (0000 0001) -> (0000 0001)
 	}
 
         // outputs:
-  	PORTB = outputB | PINB;
+  	PORTB = outputB | inputB;
         }
-    return 1;
+   
+  return 1;
 }
